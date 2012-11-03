@@ -12,8 +12,10 @@ public class Snake {
 	private Keys keys;
 	public int direction = 0; // N,E,S,W = 0,1,2,3
 	private Map map;
+	public boolean isDead = false;
 	
-	private int length = 10;
+	public int score = 0;
+	private int length = 3;
 	
 	private List<Node> mysquares= new ArrayList<Node>();
 	
@@ -29,13 +31,13 @@ public class Snake {
 	
 	public void tick() {
 		
-		if(keys.up.isDown)
+		if(keys.up.isDown && direction != 2)
 			direction = 0;
-		if(keys.right.isDown)
+		if(keys.right.isDown && direction != 3)
 			direction = 1;
-		if(keys.down.isDown)
+		if(keys.down.isDown && direction != 0)
 			direction = 2;
-		if(keys.left.isDown)
+		if(keys.left.isDown && direction != 1)
 			direction = 3;
 		
 		count++;
@@ -69,15 +71,33 @@ public class Snake {
 			if(mysquares.size() >= length)
 				mysquares.remove(0);
 			
+			for(Node s : mysquares){
+				if(s.x == xpos && s.y == ypos){
+					isDead = true;
+				}
+			}
+			
+			if(xpos == map.bit.x && ypos == map.bit.y) {
+				while(!map.newBit(mysquares));
+				addScore(1);
+			}
+			
 			mysquares.add(new Node(xpos,ypos));
 		}
 		
 	}
 	
+	public void addScore(int value) {
+		score+=value;
+		length++;
+	}
+	
 	public void render(Graphics g) {
 		for(Node s : mysquares){
-			g.setColor(Color.RED);
+			g.setColor(new Color(220,0,0));
 			g.fillRect(s.x*map.tilewidth, s.y*map.tileheight, map.tilewidth, map.tileheight);
+			g.setColor(Color.RED);
+			g.fillRect(s.x*map.tilewidth+2, s.y*map.tileheight+2, map.tilewidth-4, map.tileheight-4);
 		}
 	}
 	

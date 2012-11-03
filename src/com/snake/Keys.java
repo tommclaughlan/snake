@@ -36,6 +36,7 @@ public class Keys {
     public Key down = new Key();
     public Key left = new Key();
     public Key right = new Key();
+    public Key space = new Key();
 
     public void tick() {
         for (Key key : all)

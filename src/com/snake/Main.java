@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import com.snake.Keys;
 import com.snake.InputHandler;
 
+@SuppressWarnings("serial")
 public class Main extends Canvas implements Runnable{
 
 	private int WIDTH = 800;
@@ -133,7 +134,6 @@ public class Main extends Canvas implements Runnable{
                 }
             }
             
-
             if (System.currentTimeMillis() - lastTimer1 > 1000) {
                 lastTimer1 += 1000;
                 fps = frames;
@@ -148,12 +148,30 @@ public class Main extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		map.render(g);
 		snake.render(g);
+		
+		g.setColor(Color.WHITE);
+		g.drawString("Score: "+snake.score, 5, 15);
+		if(snake.isDead) {
+			g.drawString("DEAD! Press Space to restart", 5, 35);
+		}
 	}
 
 	private void tick() {
 		keys.tick();
-		snake.tick();
-		
+		if(!snake.isDead) {
+			map.tick();
+			snake.tick();
+		}
+		else {
+			if(keys.space.isDown) {
+				end();
+				init();
+			}
+		}
+	}
+
+	private void end() {
+		map = new Map(20,20);
 	}
 
 	private void init() {
