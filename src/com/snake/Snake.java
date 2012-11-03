@@ -10,6 +10,7 @@ public class Snake {
 	public int xpos;
 	public int ypos;
 	private Keys keys;
+	private int newdirection = 0;
 	public int direction = 0; // N,E,S,W = 0,1,2,3
 	private Map map;
 	public boolean isDead = false;
@@ -32,16 +33,17 @@ public class Snake {
 	public void tick() {
 		
 		if(keys.up.isDown && direction != 2)
-			direction = 0;
+			newdirection = 0;
 		if(keys.right.isDown && direction != 3)
-			direction = 1;
+			newdirection = 1;
 		if(keys.down.isDown && direction != 0)
-			direction = 2;
+			newdirection = 2;
 		if(keys.left.isDown && direction != 1)
-			direction = 3;
+			newdirection = 3;
 		
 		count++;
 		if(count == changetimer) {
+			direction = newdirection;
 			if(direction == 0) {
 				if(ypos == 0)
 					ypos = map.height-1;
@@ -89,7 +91,7 @@ public class Snake {
 	
 	public void addScore(int value) {
 		score+=value;
-		length++;
+		length+=2;
 	}
 	
 	public void render(Graphics g) {

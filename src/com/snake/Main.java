@@ -18,13 +18,13 @@ import com.snake.InputHandler;
 @SuppressWarnings("serial")
 public class Main extends Canvas implements Runnable{
 
-	private int WIDTH = 800;
-	private int HEIGHT = 600;
+	private int WIDTH = 30*20;
+	private int HEIGHT = 30*20;
     public Keys keys = new Keys();
     private boolean running = false;
     private int framerate = 60;
     private int fps = 0;
-    private Map map = new Map(20,20);
+    private Map map = new Map(30,30);
 	
     private Snake snake;
     
