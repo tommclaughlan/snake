@@ -5,8 +5,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -23,7 +21,7 @@ public class Main extends Canvas implements Runnable{
     public Keys keys = new Keys();
     private boolean running = false;
     private int framerate = 60;
-    private int fps = 0;
+    //private int fps = 0;
     private Map map = new Map(30,30);
 	
     private Snake snake;
@@ -58,7 +56,7 @@ public class Main extends Canvas implements Runnable{
 	public void run() {
 		long lastTime = System.nanoTime();
 		double unprocessed = 0;
-        int frames = 0;
+        //int frames = 0;
         long lastTimer1 = System.currentTimeMillis();
 
     	try {
@@ -103,7 +101,7 @@ public class Main extends Canvas implements Runnable{
             }
 
             if (shouldRender) {
-                frames++;
+                //frames++;
                 Graphics g = bs.getDrawGraphics();
     			render(g);
 
@@ -136,8 +134,8 @@ public class Main extends Canvas implements Runnable{
             
             if (System.currentTimeMillis() - lastTimer1 > 1000) {
                 lastTimer1 += 1000;
-                fps = frames;
-                frames = 0;
+                //fps = frames;
+                //frames = 0;
             }
         }
 
