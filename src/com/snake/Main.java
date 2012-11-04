@@ -16,13 +16,15 @@ import com.snake.InputHandler;
 @SuppressWarnings("serial")
 public class Main extends Canvas implements Runnable{
 
-	private int WIDTH = 30*20;
-	private int HEIGHT = 30*20;
+	private int mapwidth = 20;
+	private int mapheight = 20;
+	private int WIDTH = mapwidth*20;
+	private int HEIGHT = mapheight*20;
     public Keys keys = new Keys();
     private boolean running = false;
     private int framerate = 60;
     //private int fps = 0;
-    private Map map = new Map(30,30);
+    private Map map;
 	
     private Snake snake;
     
@@ -147,8 +149,8 @@ public class Main extends Canvas implements Runnable{
 		map.render(g);
 		snake.render(g);
 		
-		g.setColor(Color.WHITE);
-		g.drawString("Score: "+snake.score, 5, 15);
+		g.setColor(new Color(60,80,40));
+		g.drawString("Score: "+snake.score+ "  Speed: "+String.format("%.2f",15*Math.min(1,(snake.score / 50.0))), 5, 15);
 		if(snake.isDead) {
 			g.drawString("DEAD! Press Space to restart", 5, 35);
 		}
@@ -162,19 +164,15 @@ public class Main extends Canvas implements Runnable{
 		}
 		else {
 			if(keys.space.isDown) {
-				end();
 				init();
 			}
 		}
 	}
-
-	private void end() {
-		map = new Map(20,20);
-	}
-
+	
 	private void init() {
         setFocusTraversalKeysEnabled(false);
         requestFocus();
+		map = new Map(mapwidth,mapheight);
         snake = new Snake(keys,10,10,map);
 	}
 

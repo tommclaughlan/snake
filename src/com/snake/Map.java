@@ -33,13 +33,15 @@ public class Map {
 		for(int i=0; i<width; ++i){
 			for(int j=0; j<height; ++j){
 				if(squares[i][j] == 0) {
-					g.setColor(Color.BLACK);
+					g.setColor(new Color(210,230,190));
 					g.fillRect(i*tilewidth, j*tileheight, tilewidth, tileheight);
+					g.setColor(new Color(220,240,200));
+					g.fillRect(i*tilewidth+2, j*tileheight+2, tilewidth-4, tileheight-4);
 				}
 				if(bit != null && i == bit.x && j == bit.y) {
-					g.setColor(Color.DARK_GRAY);
+					g.setColor(new Color(100,120,80));
 					g.fillRect(i*tilewidth, j*tileheight, tilewidth, tileheight);
-					g.setColor(Color.LIGHT_GRAY);
+					g.setColor(new Color(140,180,120));
 					g.fillRect(i*tilewidth+2, j*tileheight+2, tilewidth-4, tileheight-4);
 				}
 

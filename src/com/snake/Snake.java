@@ -20,7 +20,7 @@ public class Snake {
 	
 	private List<Node> mysquares= new ArrayList<Node>();
 	
-	private int changetimer = 10;
+	public int changetimer = 20;
 	private int count = 0;
 	
 	public Snake(Keys _keys, int x, int y, Map _map) {
@@ -92,13 +92,14 @@ public class Snake {
 	public void addScore(int value) {
 		score+=value;
 		length+=2;
+		changetimer=(int) (20 - 15*Math.min(1,(score / 50.0)));
 	}
 	
 	public void render(Graphics g) {
 		for(Node s : mysquares){
-			g.setColor(new Color(220,0,0));
+			g.setColor(new Color(60,80,40));
 			g.fillRect(s.x*map.tilewidth, s.y*map.tileheight, map.tilewidth, map.tileheight);
-			g.setColor(Color.RED);
+			g.setColor(new Color(100,120,80));
 			g.fillRect(s.x*map.tilewidth+2, s.y*map.tileheight+2, map.tilewidth-4, map.tileheight-4);
 		}
 	}
