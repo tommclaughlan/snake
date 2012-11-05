@@ -15,6 +15,15 @@
       			</manifest>
 		</jar>	
 	</target>
+	
+	<target name="applet" depends="compile">
+		<jar jarfile="snakeapplet.jar" update="true">
+			<fileset dir="${output}"/>
+			<manifest>
+        			<attribute name="Main-Class" value="com.snake.MainApplet"/>
+      			</manifest>
+		</jar>	
+	</target>
 
 	<target name="clean">
 		<delete dir="${output}"/>

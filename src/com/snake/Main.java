@@ -6,6 +6,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,15 +29,40 @@ public class Main extends Canvas implements Runnable{
 	private int HEIGHT = mapheight*20;
     public Keys keys = new Keys();
     private boolean running = false;
-    private int framerate = 60;
+    private int framerate = 120;
     //private int fps = 0;
     private Map map;
+    
+    private int highscore = 0;
 	
     private Snake snake;
     
 	public Main() {
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.addKeyListener(new InputHandler(keys));
+        /*
+        File outFile = new File("snakescores.dat");
+        if (!outFile.exists()) {
+            try {
+				outFile.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        
+        Scanner fin = null;
+        try {
+			 fin = new Scanner(new FileReader(outFile));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(fin != null && fin.hasNextInt()) {
+			highscore = fin.nextInt();
+			fin.close();
+		}*/
+        	
 	}
 	
 	public static void main(String[] args) {
@@ -150,14 +182,32 @@ public class Main extends Canvas implements Runnable{
 		snake.render(g);
 		
 		g.setColor(new Color(60,80,40));
-		g.drawString("Score: "+snake.score+ "  Speed: "+String.format("%.2f",15*Math.min(1,(snake.score / 50.0))), 5, 15);
+		g.drawString("Score: "+snake.score+"   High Score: "+highscore, 5, 15);
+		g.drawString("Speed: "+String.format("%.2f",15*Math.min(1,(snake.score / 50.0))), 5, 30);
 		if(snake.isDead) {
-			g.drawString("DEAD! Press Space to restart", 5, 35);
+			g.drawString("DEAD! Press Space to restart", 5, 45);
 		}
 	}
 
 	private void tick() {
 		keys.tick();
+		
+		if(snake.score > highscore) {
+			highscore = snake.score;
+			/*PrintWriter fout = null;
+			try {
+				fout = new PrintWriter(new FileWriter("snakescores.dat"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(fout != null) {
+				fout.println(highscore);
+				fout.close();
+			}*/
+
+		}
+		
 		if(!snake.isDead) {
 			map.tick();
 			snake.tick();

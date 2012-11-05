@@ -32,13 +32,13 @@ public class Snake {
 	
 	public void tick() {
 		
-		if(keys.up.isDown && direction != 2)
+		if(keys.up.wasPressed() && direction != 2)
 			newdirection = 0;
-		if(keys.right.isDown && direction != 3)
+		if(keys.right.wasPressed() && direction != 3)
 			newdirection = 1;
-		if(keys.down.isDown && direction != 0)
+		if(keys.down.wasPressed() && direction != 0)
 			newdirection = 2;
-		if(keys.left.isDown && direction != 1)
+		if(keys.left.wasPressed() && direction != 1)
 			newdirection = 3;
 		
 		count++;
